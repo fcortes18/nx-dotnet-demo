@@ -1,0 +1,13 @@
+{
+  "nugetPackages": {},
+  "moduleBoundaries": [
+    {
+      "onlyDependOnLibsWithTags": ["orders"],
+      "sourceTag": "orders"
+    },
+    {
+      "onlyDependOnLibsWithTags": ["products"],
+      "sourceTag": "products"
+    }
+  ]
+}

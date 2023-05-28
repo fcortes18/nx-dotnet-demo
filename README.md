@@ -6,7 +6,7 @@
 
 #### Generate orders API
 
-`npx nx g @nx-dotnet/core:app orders-api --template webapi --test-template xunit --language C# --tags orders --no-interactive`
+`npx nx g @nx-dotnet/core:app orders/api --template webapi --test-template xunit --language C# --skipSwaggerLib true --tags orders --no-interactive`
 
 #### Generate libraries for orders API
 
@@ -30,7 +30,11 @@
 
 `npx nx g @nx-dotnet/core:project-reference orders-api --reference=orders-use-cases --no-interactive`
 
-<!-- ### Frontend -->
+### Frontend
+
+#### Generate orders components libraries
+
+`npx nx g @nx-dotnet/core:lib orders/components --template razorclasslib --test-template none --language C# --tags components --no-interactive`
 
 ## Products
 
@@ -38,7 +42,7 @@
 
 #### Generate products API
 
-`npx nx g @nx-dotnet/core:app products-api --template webapi --test-template xunit --language C# --tags products --no-interactive`
+`npx nx g @nx-dotnet/core:app products/api --template webapi --test-template xunit --language C# --tags products --skipSwaggerLib true --no-interactive`
 
 #### Generate libraries for products API
 
@@ -62,4 +66,14 @@
 
 `npx nx g @nx-dotnet/core:project-reference products-api --reference=products-use-cases --no-interactive`
 
-<!-- ### Frontend -->
+### Frontend
+
+#### Generate products components libraries
+
+`npx nx g @nx-dotnet/core:lib products/components --template razorclasslib --test-template none --language C# --tags components --no-interactive`
+
+## Apps
+
+`npx nx g @nx-dotnet/core:app sites/admin --template blazorwasm --test-template xunit --language C# --tags sites --no-interactive`
+
+`npx nx g @nx-dotnet/core:app sites/store --template blazorwasm --test-template xunit --language C# --tags sites --no-interactive`
