@@ -1,3 +1,25 @@
+# NxDotnetDemo
+
+## Workspace set up
+
+Run `npm i -g @nrwl/cli` to install NX CLI globally
+
+Run `npx create-nx-workspace@latest` to create a new workspace with the latest version, if it's not installed it'll ask to install first and then show the steps to create the workspace.
+
+Choose `Integrate monorepo` option:
+
+![screenshot](static/nx-1.PNG)
+
+Choose `apps` option:
+
+![screenshot](static/nx-2.PNG)
+
+Set repository name (for this one was `nx-dotnet-repo`) and enable distributed cache if you want CI faster:
+
+![screenshot](static/nx-3.PNG)
+
+Run `npm i --save-dev @nx-dotnet/core` to add nx-dotnet plugin into the current workspace. Now you are able to add libaries and applications into your monorepo workspace. 
+
 # Adding apps & libs
 
 ## Orders
@@ -109,3 +131,17 @@
 `npx nx g @nx-dotnet/core:project-reference orders-infrastructure --reference=shared-infrastructure-utils  --no-interactive`
 
 `npx nx g @nx-dotnet/core:project-reference orders-use-cases --reference=shared-infrastructure-utils  --no-interactive`
+
+You can take a look on `demo-final` branch to see the projects created after creating the resources.
+
+## Understand this workspace
+
+Run `nx graph` to see a diagram of the dependencies of the projects.
+
+## Remote caching
+
+Run `npx nx connect-to-nx-cloud` to enable [remote caching](https://nx.app) and make CI faster.
+
+## Further help
+
+Visit the [Nx Documentation](https://nx.dev) and the [Nx Dotnet Documentation](https://www.nx-dotnet.com/) to learn more.
