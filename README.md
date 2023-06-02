@@ -20,33 +20,119 @@ Set repository name (for this one was `nx-dotnet-repo`) and enable distributed c
 
 Run `npm i --save-dev @nx-dotnet/core` to add nx-dotnet plugin into the current workspace. Now you are able to add libaries and applications into your monorepo workspace. 
 
-You can review README.md in `demo-initial` branch and create a sub-branch to see and follow a step by step example addings apps and libs.
+# Adding apps & libs
 
-You can take a look on `demo-final` branch to see the completed example after creating the resources.
+## Orders
 
-## Generate an application
+### Backend
 
-Run `nx g @nx-dotnet/core:app my-app` to generate an application.
+#### Generate orders API
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+`npx nx g @nx-dotnet/core:app orders/api --template webapi --test-template xunit --language C# --skipSwaggerLib true --tags orders --no-interactive`
 
-## Generate a library
+#### Generate libraries for orders API
 
-Run `nx g @nx-dotnet/core:lib my-lib` to generate a library.
+`npx nx g @nx-dotnet/core:lib orders/domain --template classlib --test-template none --language C# --tags orders,shared --no-interactive`
 
-Libraries are shareable across libraries and applications.
+`npx nx g @nx-dotnet/core:lib orders/infrastructure --template classlib --test-template none --language C# --tags orders --no-interactive`
 
-## Development server
+`npx nx g @nx-dotnet/core:lib orders/use-cases --template classlib --test-template none --language C# --tags orders --no-interactive`
 
-Run `nx serve my-app` for a dev server. The app will automatically reload if you change any of the source files.
+#### Generate swagger libs for orders API
 
-## Build
+`npx nx g @nx-dotnet/core:add-swagger-target --project=orders-api --codegenProject=orders-api-types --swaggerProject=orders-api-swagger --useNxPluginOpenAPI false`
 
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+#### Generate references for orders
 
-## Serve
+`npx nx g @nx-dotnet/core:project-reference orders-infrastructure --reference=orders-domain --no-interactive`
 
-Run `nx serve my-app` to run a simple development server. This will watch for file changes and rebuild your project.
+`npx nx g @nx-dotnet/core:project-reference orders-use-cases --reference=orders-domain --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference orders-use-cases --reference=orders-infrastructure --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference orders-api --reference=orders-use-cases --no-interactive`
+
+### Frontend
+
+#### Generate orders components libraries
+
+`npx nx g @nx-dotnet/core:lib orders/components --template razorclasslib --test-template none --language C# --tags components --no-interactive`
+
+## Products
+
+### Backend
+
+#### Generate products API
+
+`npx nx g @nx-dotnet/core:app products/api --template webapi --test-template xunit --language C# --tags products --skipSwaggerLib true --no-interactive`
+
+#### Generate libraries for products API
+
+`npx nx g @nx-dotnet/core:lib products/domain --template classlib --test-template none --language C# --tags products,shared --no-interactive`
+
+`npx nx g @nx-dotnet/core:lib products/infrastructure --template classlib --test-template none --language C# --tags products --no-interactive`
+
+`npx nx g @nx-dotnet/core:lib products/use-cases --template classlib --test-template none --language C# --tags products --no-interactive`
+
+#### Generate swagger libs for products API
+
+`npx nx g @nx-dotnet/core:add-swagger-target --project=products-api --codegenProject=products-api-types --swaggerProject=products-api-swagger --useNxPluginOpenAPI false`
+
+#### Generate references for products
+
+`npx nx g @nx-dotnet/core:project-reference products-infrastructure --reference=products-domain --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference products-use-cases --reference=products-domain --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference products-use-cases --reference=products-infrastructure --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference products-api --reference=products-use-cases --no-interactive`
+
+### Frontend
+
+#### Generate products components libraries
+
+`npx nx g @nx-dotnet/core:lib products/components --template razorclasslib --test-template none --language C# --tags components --no-interactive`
+
+## Sites
+
+`npx nx g @nx-dotnet/core:app sites/admin --template blazorwasm --test-template xunit --language C# --tags sites --no-interactive`
+
+`npx nx g @nx-dotnet/core:app sites/store --template blazorwasm --test-template xunit --language C# --tags sites --no-interactive`
+
+#### Components references
+
+`npx nx g @nx-dotnet/core:project-reference sites-admin --reference=orders-components --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference sites-store --reference=orders-components --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference sites-admin --reference=products-components --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference sites-store --reference=products-components --no-interactive`
+
+## Shared
+
+`npx nx g @nx-dotnet/core:lib shared/api-utils --template classlib --test-template none --language C# --tags shared --no-interactive`
+
+`npx nx g @nx-dotnet/core:lib shared/infrastructure-utils --template classlib --test-template none --language C# --tags shared --no-interactive`
+
+`npx nx g @nx-dotnet/core:lib shared/framework --template classlib --test-template none --language C# --tags shared --no-interactive`
+
+#### References
+
+`npx nx g @nx-dotnet/core:project-reference shared-infrastructure-utils --reference=shared-framework --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference orders-domain --reference=shared-framework --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference orders-infrastructure --reference=shared-framework --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference orders-use-cases --reference=shared-framework --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference orders-infrastructure --reference=shared-infrastructure-utils  --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference orders-use-cases --reference=shared-infrastructure-utils  --no-interactive`
+
+You can take a look on `demo-final` branch to see the projects created after creating the resources.
 
 ## Understand this workspace
 
