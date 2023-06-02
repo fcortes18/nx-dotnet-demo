@@ -24,5 +24,5 @@
       "executor": "@nx-dotnet/core:format"
     }
   },
-  "tags": ["products"]
+  "tags": ["products", "shared"]
 }

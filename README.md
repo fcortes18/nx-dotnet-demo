@@ -10,7 +10,7 @@
 
 #### Generate libraries for orders API
 
-`npx nx g @nx-dotnet/core:lib orders/domain --template classlib --test-template none --language C# --tags orders --no-interactive`
+`npx nx g @nx-dotnet/core:lib orders/domain --template classlib --test-template none --language C# --tags orders,shared --no-interactive`
 
 `npx nx g @nx-dotnet/core:lib orders/infrastructure --template classlib --test-template none --language C# --tags orders --no-interactive`
 
@@ -46,7 +46,7 @@
 
 #### Generate libraries for products API
 
-`npx nx g @nx-dotnet/core:lib products/domain --template classlib --test-template none --language C# --tags products --no-interactive`
+`npx nx g @nx-dotnet/core:lib products/domain --template classlib --test-template none --language C# --tags products,shared --no-interactive`
 
 `npx nx g @nx-dotnet/core:lib products/infrastructure --template classlib --test-template none --language C# --tags products --no-interactive`
 
@@ -96,3 +96,16 @@
 
 `npx nx g @nx-dotnet/core:lib shared/framework --template classlib --test-template none --language C# --tags shared --no-interactive`
 
+#### References
+
+`npx nx g @nx-dotnet/core:project-reference shared-infrastructure-utils --reference=shared-framework --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference orders-domain --reference=shared-framework --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference orders-infrastructure --reference=shared-framework --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference orders-use-cases --reference=shared-framework --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference orders-infrastructure --reference=shared-infrastructure-utils  --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference orders-use-cases --reference=shared-infrastructure-utils  --no-interactive`
