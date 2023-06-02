@@ -11,7 +11,11 @@
           "build",
           "lint",
           "test",
-          "e2e"
+          "e2e",
+          "codegen",
+          "swagger",
+          "codegen",
+          "swagger"
         ],
         "accessToken": "ZDc0YWVlNjAtMjExMi00ZmRiLTllOGQtODU1ZmU2NWI0Y2YzfHJlYWQtd3JpdGU="
       }
@@ -20,11 +24,29 @@
   "targetDefaults": {
     "build": {
       "dependsOn": [
-        "^build"
+        "^build",
+        "codegen",
+        "^codegen",
+        "codegen",
+        "^codegen"
       ],
       "inputs": [
         "production",
         "^production"
+      ]
+    },
+    "lint": {
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.json",
+        "{workspaceRoot}/.eslintignore"
+      ]
+    },
+    "test": {
+      "inputs": [
+        "default",
+        "^production",
+        "{workspaceRoot}/jest.preset.js"
       ]
     }
   },
@@ -34,8 +56,15 @@
       "sharedGlobals"
     ],
     "production": [
-      "default"
+      "default",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/jest.config.[jt]s"
     ],
     "sharedGlobals": []
-  }
+  },
+  "plugins": [
+    "@nx-dotnet/core"
+  ]
 }

@@ -72,8 +72,27 @@
 
 `npx nx g @nx-dotnet/core:lib products/components --template razorclasslib --test-template none --language C# --tags components --no-interactive`
 
-## Apps
+## Sites
 
 `npx nx g @nx-dotnet/core:app sites/admin --template blazorwasm --test-template xunit --language C# --tags sites --no-interactive`
 
 `npx nx g @nx-dotnet/core:app sites/store --template blazorwasm --test-template xunit --language C# --tags sites --no-interactive`
+
+#### Components references
+
+`npx nx g @nx-dotnet/core:project-reference sites-admin --reference=orders-components --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference sites-store --reference=orders-components --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference sites-admin --reference=products-components --no-interactive`
+
+`npx nx g @nx-dotnet/core:project-reference sites-store --reference=products-components --no-interactive`
+
+## Shared
+
+`npx nx g @nx-dotnet/core:lib shared/api-utils --template classlib --test-template none --language C# --tags shared --no-interactive`
+
+`npx nx g @nx-dotnet/core:lib shared/infrastructure-utils --template classlib --test-template none --language C# --tags shared --no-interactive`
+
+`npx nx g @nx-dotnet/core:lib shared/framework --template classlib --test-template none --language C# --tags shared --no-interactive`
+

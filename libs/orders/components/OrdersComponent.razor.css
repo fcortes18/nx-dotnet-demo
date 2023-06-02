@@ -1,0 +1,6 @@
+﻿.orders-component {
+    border: 2px dashed rgb(0, 255, 238);
+    padding: 1em;
+    margin: 1em 0;
+    background-image: url('background.png');
+}

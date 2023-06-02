@@ -1,0 +1,6 @@
+﻿.product-component {
+    border: 2px dashed rgb(255, 123, 0);
+    padding: 1em;
+    margin: 1em 0;
+    background-image: url('background.png');
+}

@@ -2,12 +2,24 @@
   "nugetPackages": {},
   "moduleBoundaries": [
     {
-      "onlyDependOnLibsWithTags": ["orders"],
+      "onlyDependOnLibsWithTags": ["orders", "shared"],
       "sourceTag": "orders"
     },
     {
-      "onlyDependOnLibsWithTags": ["products"],
+      "onlyDependOnLibsWithTags": ["products", "shared"],
       "sourceTag": "products"
+    },
+    {
+      "onlyDependOnLibsWithTags": ["components", "shared"],
+      "sourceTag": "components"
+    },
+    {
+      "onlyDependOnLibsWithTags": ["sites", "components", "shared"],
+      "sourceTag": "sites"
+    },
+    {
+      "onlyDependOnLibsWithTags": ["shared"],
+      "sourceTag": "shared"
     }
   ]
 }
