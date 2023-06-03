@@ -42,6 +42,10 @@ Run `npm i --save-dev @nx-dotnet/core` to add nx-dotnet plugin into the current 
 
 `npx nx g @nx-dotnet/core:add-swagger-target --project=orders-api --codegenProject=orders-api-types --swaggerProject=orders-api-swagger --useNxPluginOpenAPI false`
 
+To use Nx Plugin OpenAPI in command below, you should have installed `Java 8` or higher:
+
+`npx nx g @nx-dotnet/core:add-swagger-target --project=orders-api --codegenProject=orders-api-client --swaggerProject=orders-api-def --useNxPluginOpenAPI true`
+
 #### Generate references for orders
 
 `npx nx g @nx-dotnet/core:project-reference orders-infrastructure --reference=orders-domain --no-interactive`
