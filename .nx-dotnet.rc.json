@@ -1,5 +1,7 @@
 {
-  "nugetPackages": {},
+  "nugetPackages": {
+    "Swashbuckle.AspNetCore": "6.5.0"
+  },
   "moduleBoundaries": [
     {
       "onlyDependOnLibsWithTags": ["orders", "shared"],

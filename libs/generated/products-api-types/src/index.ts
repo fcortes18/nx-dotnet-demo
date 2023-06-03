@@ -1,1 +1,1 @@
-export * from './lib/generated-products-api-types';
+export * from './interfaces/weather-forecast';

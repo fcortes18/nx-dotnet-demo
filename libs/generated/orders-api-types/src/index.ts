@@ -1,1 +1,2 @@
-export * from './lib/generated-orders-api-types';
+export * from './interfaces/order';
+export * from './interfaces/order-item';
