@@ -20,6 +20,9 @@
       ],
       "@nx-dotnet-demo/generated/products-api-types": [
         "libs/generated/products-api-types/src/index.ts"
+      ],
+      "@undefined/generated/orders-api-client": [
+        "libs/generated/orders-api-client/src/index.ts"
       ]
     }
   },

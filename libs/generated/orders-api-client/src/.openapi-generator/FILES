@@ -1,0 +1,8 @@
+.openapi-generator-ignore
+apis/OrdersApi.ts
+apis/index.ts
+index.ts
+models/Order.ts
+models/OrderItem.ts
+models/index.ts
+runtime.ts

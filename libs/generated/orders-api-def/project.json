@@ -1,0 +1,11 @@
+{
+  "name": "orders-api-def",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "outputs": ["libs/generated/orders-api-def"]
+    }
+  },
+  "implicitDependencies": ["orders-api"]
+}

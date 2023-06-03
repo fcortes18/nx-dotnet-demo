@@ -1,0 +1,22 @@
+{
+  "name": "generated-orders-api-client",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/generated/orders-api-client/src",
+  "projectType": "library",
+  "targets": {
+    "codegen": {
+      "executor": "@trumbitta/nx-plugin-openapi:generate-api-lib-sources",
+      "options": {
+        "generator": "typescript-fetch",
+        "sourceSpecPathOrUrl": "libs/generated/orders-api-def/swagger.json"
+      },
+      "dependsOn": [
+        "^swagger"
+      ]
+    }
+  },
+  "implicitDependencies": [
+    "orders-api-def"
+  ],
+  "tags": []
+}
