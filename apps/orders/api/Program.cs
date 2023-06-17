@@ -1,30 +1,81 @@
-using Orders.UseCases;
+using Asp.Versioning;
+using OrdersAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddApiVersioning(options =>
+    {
+        options.DefaultApiVersion = new ApiVersion(1, 0);
+        options.ReportApiVersions = true;
+    }
+).AddApiExplorer(options =>
+    {
+        options.GroupNameFormat = "'v'VVV";
+        options.SubstituteApiVersionInUrl = false;
+    }
+);
 
-//TODO: added as singleton since list is harcoded, it's just for demo, implement dbcontext and scoped services, etc. for real use
-builder.Services.AddSingleton<IOrdersCrud, OrdersCrud>();
+builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+var versionSet = app.NewApiVersionSet()
+                    .HasApiVersion(new ApiVersion(1, 0))
+                    .HasApiVersion(new ApiVersion(2, 0))
+                    .ReportApiVersions()
+                    .Build();
+
+var uploadVersionSet = app.NewApiVersionSet("Upload")
+                        .Build();
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+// 1.0
+app.MapGet("/api/hello", () => "Hello world!")
+    .WithApiVersionSet(versionSet)
+    .MapToApiVersion(1.0)
+    .WithTags("Orders");
 
-app.MapControllers();
+// 2.0
+app.MapGet("/api/hello", () => "Hello world 2!")
+    .WithApiVersionSet(versionSet)
+    .MapToApiVersion(2.0)
+    .WithTags("Orders");
+
+app.MapPost("/api/upload", (FileModel model) =>
+{
+    return model.File == null ? Results.BadRequest("No file was attached") : Results.Ok(new { fileName = model.File.FileName });
+})
+.Accepts<FileModel>("multipart/form-data")
+.WithApiVersionSet(uploadVersionSet)
+.HasApiVersion(1.0)
+.WithTags("Orders");
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        var descriptions = app.DescribeApiVersions();
+        foreach (var description in descriptions)
+        {
+            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+                description.GroupName.ToUpperInvariant());
+        }
+    });
+}
 
 app.Run();
+
+internal record FileModel(IFormFile? File)
+{
+    public static async ValueTask<FileModel?> BindAsync(HttpContext context)
+    {
+        var form = await context.Request.ReadFormAsync();
+        var file = form.Files["file"];
+        return new FileModel(file);
+    }
+}

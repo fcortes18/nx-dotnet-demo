@@ -40,8 +40,8 @@
         "options.output"
       ],
       "options": {
-        "output": "libs/generated/orders-api-def/v1/swagger.json",
-        "swaggerDoc": "v1"
+        "output": "libs/generated/orders-api-def/v2/swagger.json",
+        "swaggerDoc": "v2"
       },
       "dependsOn": [
         "build"
